@@ -1,0 +1,2 @@
+# BedrockServer_Status
+Minecraft Bedrock服务器状态检测网页
