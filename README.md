@@ -1,2 +1,20 @@
-# BedrockServer_Status
-Minecraft Bedrock服务器状态检测网页
+## Minecraft Bedrock Server 状态检测
++ 原理: 模拟Minecraft Bedrock客户端获取服务器信息
++ 特点: 纯静态页面,无需
++ 语言: Html + CSS + JavaScript
++ 演示:   
+
+
+https://raw.githubusercontent.com/victor-egg/BedrockServer_Status/refs/heads/main/img/1.png
+
+
++ 使用方法：
+1. 同步此存储库
+```bash
+git clone https://github.com/victor-egg/BedrockServer_Status.git
+```
+2. 修改 main.js 代码,填写你的服务器地址(域名或IP)与端口
+```JavaScript
+const serverHost = "";
+const serverPort = "";
+```

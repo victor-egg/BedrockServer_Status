@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <link rel="shortcut icon" href="./favicon.ico" type="image/x-icon">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minecraft服务器状态</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <script src="styles.js"></script>
+</head>
+<body class="bg-darker font-inter text-gray-100 min-h-screen bg-minecraft">
+    <div class="fixed inset-0 bg-dark/60 backdrop-blur-sm z-0"></div>
+    
+    <!-- 顶部 -->
+    <header class="bg-dark/80 backdrop-blur-md border-b border-primary/20 sticky top-0 z-50 relative">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <div class="flex items-center space-x-2">
+                <div class="w-10 h-10 rounded-lg bg-primary/20 flex items-center justify-center border border-primary/40">
+                    <i class="fa fa-tachometer text-primary text-xl"></i>
+                </div>
+                <h1 class="text-xl md:text-2xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">Minecraft服务器<span class="text-xs align-top">基岩版</span></h1>
+            </div>
+            <div class="flex items-center space-x-4">
+                <button class="px-4 py-2 rounded-lg bg-card hover:bg-primary/20 transition-all duration-300 flex items-center space-x-2 border border-primary/30">
+                    <i class="fa fa-refresh"></i>
+                    <span>刷新</span>
+                </button>
+                <span id="lastUpdated" class="text-sm text-gray-400 hidden md:inline-block">上次更新: 刚刚</span>
+            </div>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-4 py-8 relative z-10">
+        <!-- 服务器状态卡片 -->
+        <section class="mb-12">
+            <div class="server-card rounded-2xl overflow-hidden shadow-xl transition-all duration-500 hover:shadow-primary/30 hover:border-primary/40">
+                <div class="relative">
+                    <div class="absolute inset-0 bg-gradient-to-br from-primary/10 to-secondary/10 opacity-60"></div>
+                    
+                    <!-- 状态指示器 -->
+                    <div class="absolute top-4 right-4 flex items-center space-x-2 bg-dark/60 backdrop-blur-sm px-3 py-1.5 rounded-full border border-gray-700 cursor-pointer" id="statusToggle">
+                        <span id="statusIndicator" class="w-3 h-3 rounded-full bg-success"></span>
+                        <span id="statusText" class="text-sm font-medium">获取中</span>
+                    </div>
+                    
+                    <div class="p-6 md:p-8 relative z-10">
+                        <h2 id="serverName" class="text-[clamp(1.5rem,3vw,2.5rem)] font-bold text-shadow-lg mb-2">NULL</h2>
+                        <div class="flex flex-wrap items-center gap-3 mb-6">
+                            <div class="bg-dark/60 backdrop-blur-sm px-4 py-2 rounded-lg border border-primary/30 flex items-center">
+                                <i class="fa fa-server text-primary mr-2"></i>
+                                <span id="serverHost" class="font-mono text-sm">NULL</span>
+                            </div>
+                            <button class="bg-primary/20 hover:bg-primary/30 text-primary px-4 py-2 rounded-lg transition-all duration-300 border border-primary/40 flex items-center">
+                                <i class="fa fa-copy mr-2"></i>
+                                <span>复制服务器地址</span>
+                            </button>
+                        </div>
+                        
+                        <!-- 服务器信息网格 -->
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div class="bg-dark/40 backdrop-blur-sm p-4 rounded-xl border border-gray-700/50 hover:border-primary/30 transition-all duration-300">
+                                <div class="text-gray-400 text-sm mb-1">端口</div>
+                                <div id="serverPort" class="flex items-center">
+                                    <i class="fa fa-life-ring text-secondary mr-2"></i>
+                                    <span>NULL</span>
+                                </div>
+                            </div>
+                            <div class="bg-dark/40 backdrop-blur-sm p-4 rounded-xl border border-gray-700/50 hover:border-primary/30 transition-all duration-300">
+                                <div class="text-gray-400 text-sm mb-1">版本</div>
+                                <div id="serverVersion" class="flex items-center">
+                                    <i class="fa fa-code-fork text-secondary mr-2"></i>
+                                    <span>NULL</span>
+                                </div>
+                            </div>
+                            <div class="bg-dark/40 backdrop-blur-sm p-4 rounded-xl border border-gray-700/50 hover:border-primary/30 transition-all duration-300">
+                                <div class="text-gray-400 text-sm mb-1">协议版本</div>
+                                <div id="protocolVersion" class="flex items-center">
+                                    <i class="fa fa-exchange text-secondary mr-2"></i>
+                                    <span>NULL</span>
+                                </div>
+                            </div>
+                            <div class="bg-dark/40 backdrop-blur-sm p-4 rounded-xl border border-gray-700/50 hover:border-primary/30 transition-all duration-300">
+                                <div class="text-gray-400 text-sm mb-1">服务器ID</div>
+                                <div id="serverIdContainer" class="flex items-center">
+                                    <i class="fa fa-key text-secondary mr-2"></i>
+                                    <span id="serverId" class="text-sm font-mono">NULL</span>
+                                </div>
+                            </div>                            
+                            <div class="bg-dark/40 backdrop-blur-sm p-4 rounded-xl border border-gray-700/50 hover:border-primary/30 transition-all duration-300">
+                                <div class="text-gray-400 text-sm mb-1">游戏模式</div>
+                                <div id="gameMode" class="flex items-center">
+                                    <i class="fa fa-gamepad text-secondary mr-2"></i>
+                                    <span>NULL</span>
+                                </div>
+                            </div>
+                            <div class="bg-dark/40 backdrop-blur-sm p-4 rounded-xl border border-gray-700/50 hover:border-primary/30 transition-all duration-300">
+                                <div class="text-gray-400 text-sm mb-1">存档名</div>
+                                <div id="worldName" class="flex items-center">
+                                    <i class="fa fa-database text-secondary mr-2"></i>
+                                    <span>NULL</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 玩家统计 -->
+                <div class="bg-card p-6 md:p-8 border-t border-gray-800">
+                    <h3 class="text-xl font-semibold mb-4 flex items-center">
+                        <i class="fa fa-users text-primary mr-2"></i>
+                        玩家统计
+                    </h3>
+                    
+                    <div class="flex flex-col md:flex-row gap-6">
+                        <!-- 玩家数量 -->
+                        <div class="w-full flex flex-col items-center justify-center p-6 bg-dark/40 rounded-xl border border-gray-700/50">
+                            <div id="playerCount" class="text-4xl font-bold text-shadow text-primary mb-1">0</div>
+                            <div class="text-gray-400">在线玩家</div>
+                            <div class="text-sm mt-2">
+                                <span id="playerMax">20</span> 人上限
+                            </div>
+                            
+                            <!-- 进度条 -->
+                            <div class="w-full mt-4 h-2 bg-gray-700/50 rounded-full overflow-hidden">
+                                <div id="playerProgress" class="h-full bg-gradient-to-r from-primary to-secondary transition-all duration-1000" style="width: 0%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section class="server-card rounded-2xl p-8 shadow-lg">
+            <div class="text-center mb-6">
+                <h3 class="text-2xl md:text-3xl font-bold mb-2">启动游戏</h3>
+                <p class="text-gray-400 max-w-2xl mx-auto">为服务器备注名字,并开始游玩</p>
+            </div>
+            
+            <div class="max-w-md mx-auto">
+                <div class="flex items-center space-x-3">
+                    <div class="flex-1">
+                        <input type="text" id="ServerNameInput" value="Server" class="w-full bg-dark border border-primary/40 rounded-lg px-4 py-3 font-mono focus:outline-none focus:ring-2 focus:ring-primary/50">
+                    </div>
+                    <button class="bg-primary hover:bg-primary/90 text-white px-4 py-3 rounded-lg transition-all duration-300 flex items-center justify-center whitespace-nowrap">
+                        <i class="fa fa-plus-circle mr-2"></i>
+                        <span>添加服务器</span>
+                    </button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-dark border-t border-gray-800 py-6 relative z-10">
+            <div id="footer" class="text-center text-gray-500 text-sm">
+                 © Victor | <a href="https://beian.miit.gov.cn/" target="_blank" class="beian-link">备案</a>
+            </div>
+    </footer>
+    <script src="main.js"></script>
+</body>
+</html>
