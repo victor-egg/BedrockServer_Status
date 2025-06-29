@@ -4,8 +4,7 @@
 + 语言: Html + CSS + JavaScript
 + 演示:   
 
-
-https://raw.githubusercontent.com/victor-egg/BedrockServer_Status/refs/heads/main/img/1.png
+![1](https://github.com/user-attachments/assets/4af381b2-2981-40d8-a2d5-d00b6a83b08f)
 
 
 + 使用方法：
