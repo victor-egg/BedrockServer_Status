@@ -2,12 +2,16 @@
 const serverHost = "";
 const serverPort = "";
 let api_path = `https://api.chron.top/mcpe/status?host=${serverHost}&port=${serverPort}`;
+// 游戏下载链接
+const iosLink = "https://apps.apple.com/hk/app/minecraft/id479516143";
+const androidLink = "https://bbk.endyun.ltd/download";
+const windowsLink = "https://www.xbox.com/zh-cn/games/store/minecraft-for-windows/9nblggh2jhxj";
 
 async function updateServerInfo() {
     // 更新数据
     const response = await fetch(api_path);
     if (!response.ok) {
-        console.error("无法请求检测api");
+        console.error("无法请求api");
         updateServerStatus(false);
         return;
     }
@@ -108,7 +112,6 @@ document.querySelector('button:has(.fa-plus-circle)').addEventListener('click', 
     }, 2000);
 });
 
-
 document.addEventListener('DOMContentLoaded', function () {
     const footerElement = document.getElementById('footer');
     if (footerElement) {
@@ -117,6 +120,15 @@ document.addEventListener('DOMContentLoaded', function () {
             footerElement.prepend(currentYear + ' ');
         }
     }
-    // 初始化
+    downloadButtons = document.getElementById('IOSDownloadLink');
+    downloadButtons.href = iosLink;
+    downloadButtons = document.getElementById('AndroidDownloadLink');
+    downloadButtons.href = androidLink;
+    downloadButtons = document.getElementById('WindowsDownloadLink');
+    downloadButtons.href = windowsLink;
+    if (serverHost == "" || serverPort == ""){
+        document.getElementById('serverName').textContent = "main.js 未配置游戏服务器地址";
+        return;
+    }
     updateServerInfo();
 });

@@ -13,8 +13,6 @@
 </head>
 <body class="bg-darker font-inter text-gray-100 min-h-screen bg-minecraft">
     <div class="fixed inset-0 bg-dark/60 backdrop-blur-sm z-0"></div>
-    
-    <!-- 顶部 -->
     <header class="bg-dark/80 backdrop-blur-md border-b border-primary/20 sticky top-0 z-50 relative">
         <div class="container mx-auto px-4 py-3 flex justify-between items-center">
             <div class="flex items-center space-x-2">
@@ -34,7 +32,7 @@
     </header>
 
     <main class="container mx-auto px-4 py-8 relative z-10">
-        <!-- 服务器状态卡片 -->
+        <!-- 服务器状态 -->
         <section class="mb-12">
             <div class="server-card rounded-2xl overflow-hidden shadow-xl transition-all duration-500 hover:shadow-primary/30 hover:border-primary/40">
                 <div class="relative">
@@ -132,22 +130,37 @@
                 </div>
             </div>
         </section>
-        
-        <section class="server-card rounded-2xl p-8 shadow-lg">
-            <div class="text-center mb-6">
-                <h3 class="text-2xl md:text-3xl font-bold mb-2">启动游戏</h3>
-                <p class="text-gray-400 max-w-2xl mx-auto">为服务器备注名字,并开始游玩</p>
+        <!-- 下载游戏 -->
+        <section class="mb-12">
+            <div class="server-card rounded-2xl p-8 shadow-lg">
+                <div class="text-center mb-6">
+                    <h3 class="text-2xl md:text-3xl font-bold mb-2">下载游戏</h3>
+                </div>
+                <div class="max-w-md mx-auto text-center">
+                    <a id="IOSDownloadLink" href="#" class="fa fa-apple bg-primary hover:bg-primary/90 text-white px-4 py-3 rounded-lg transition-all duration-300 inline-block">IOS</a>
+                    <a id="AndroidDownloadLink" href="#" class="fa fa-android bg-primary hover:bg-primary/90 text-white px-4 py-3 rounded-lg transition-all duration-300 inline-block">Android</a>
+                    <a id="WindowsDownloadLink" href="#" class="fa fa-windows bg-primary hover:bg-primary/90 text-white px-4 py-3 rounded-lg transition-all duration-300 inline-block">Windows</a>
+                </div>
             </div>
-            
-            <div class="max-w-md mx-auto">
-                <div class="flex items-center space-x-3">
-                    <div class="flex-1">
-                        <input type="text" id="ServerNameInput" value="Server" class="w-full bg-dark border border-primary/40 rounded-lg px-4 py-3 font-mono focus:outline-none focus:ring-2 focus:ring-primary/50">
+        </section>
+        <!-- 启动游戏 -->
+        <section class="mb-12">
+            <div class="server-card rounded-2xl p-8 shadow-lg">
+                <div class="text-center mb-6">
+                    <h3 class="text-2xl md:text-3xl font-bold mb-2">启动游戏</h3>
+                    <p class="text-gray-400 max-w-2xl mx-auto">为服务器备注名字,并开始游玩</p>
+                </div>
+                
+                <div class="max-w-md mx-auto">
+                    <div class="flex items-center space-x-3">
+                        <div class="flex-1">
+                            <input type="text" id="ServerNameInput" value="提瓦特" class="w-full bg-dark border border-primary/40 rounded-lg px-4 py-3 font-mono focus:outline-none focus:ring-2 focus:ring-primary/50">
+                        </div>
+                        <button class="bg-primary hover:bg-primary/90 text-white px-4 py-3 rounded-lg transition-all duration-300 flex items-center justify-center whitespace-nowrap">
+                            <i class="fa fa-plus-circle mr-2"></i>
+                            <span>添加服务器</span>
+                        </button>
                     </div>
-                    <button class="bg-primary hover:bg-primary/90 text-white px-4 py-3 rounded-lg transition-all duration-300 flex items-center justify-center whitespace-nowrap">
-                        <i class="fa fa-plus-circle mr-2"></i>
-                        <span>添加服务器</span>
-                    </button>
                 </div>
             </div>
         </section>
