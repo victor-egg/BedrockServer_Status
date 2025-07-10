@@ -1,6 +1,6 @@
 ## Minecraft Bedrock Server 状态检测
 + 原理: 模拟Minecraft Bedrock客户端获取服务器信息
-+ 特点: 纯静态页面,无需
++ 特点: 纯静态页面
 + 语言: Html + CSS + JavaScript
 + 演示:   
 
